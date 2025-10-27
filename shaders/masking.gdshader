@@ -7,13 +7,9 @@ void fragment() {
 	vec4 final_color = original_color;
 	vec4 mask = texture(mask_texture, UV);
 
-	if (mask.r > 0.0) {
-		COLOR.a = mask.r;
+	if (original_color.a > 0.0) {
+		final_color.a = mask.r;
 	}
 
-	//if (original_color.a > 0.0) {
-		//final_color.a = mask.r;
-	//}
-//
-	//COLOR = final_color;
+	COLOR = final_color;
 }
