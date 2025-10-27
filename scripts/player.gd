@@ -20,7 +20,7 @@ func _physics_process(delta):
 	if direction != 0:
 		sprite.flip_h = (direction == -1)
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("flash"):
 		animation_player.play("hitFlash")
 	
 	if direction:
