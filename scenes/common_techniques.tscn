@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cayc38k3ed71x"]
+[gd_scene load_steps=43 format=3 uid="uid://cayc38k3ed71x"]
 
 [ext_resource type="Script" uid="uid://drl1xkp2lkjqk" path="res://scripts/common_techniques.gd" id="1_0ugy3"]
 [ext_resource type="Texture2D" uid="uid://dw27ks2iy6r18" path="res://assets/other/Terrain (16x16).png" id="2_4ntks"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://cke0c82pd1yud" path="res://assets/other/circle_mask1.png" id="14_ir1eb"]
 [ext_resource type="Texture2D" uid="uid://daw35yrqwa2a5" path="res://assets/other/Spike Head.png" id="14_v7i2p"]
 [ext_resource type="Shader" uid="uid://im86ehkg51l5" path="res://shaders/distortion.gdshader" id="16_ir1eb"]
+[ext_resource type="Shader" uid="uid://cnyxh0ohwl7p7" path="res://shaders/squiggleVision.gdshader" id="17_mb2c8"]
+[ext_resource type="Shader" uid="uid://bonm2hfamv66s" path="res://shaders/vhs_crt_shader.gdshader" id="17_ow30b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfsxn"]
 shader = ExtResource("2_xth1f")
@@ -273,6 +275,43 @@ shader_parameter/offset1 = Vector2(1, 1)
 shader_parameter/offset2 = Vector2(-1, -1)
 shader_parameter/distortion_strength = 0.02000004845000003
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mb2c8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_70r4n"]
+noise = SubResource("FastNoiseLite_mb2c8")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70r4n"]
+shader = ExtResource("17_mb2c8")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.1
+shader_parameter/fps = 6.0
+shader_parameter/noise = SubResource("NoiseTexture2D_70r4n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mb2c8"]
+shader = ExtResource("17_ow30b")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.10000000475
+shader_parameter/scanlines_width = 0.10000000475
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.01200000057
+shader_parameter/noise_opacity = 0.1570000074575
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.186000008835
+shader_parameter/aberration = 0.010000047974999982
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
 [node name="CommonTechniques" type="Node2D"]
 script = ExtResource("1_0ugy3")
 
@@ -339,4 +378,22 @@ texture_repeat = 2
 material = SubResource("ShaderMaterial_ow30b")
 position = Vector2(1557, 458.99997)
 scale = Vector2(9.583152, 9.583152)
+texture = ExtResource("10_luoof")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="SquiggleVision" type="Sprite2D" parent="CanvasLayer3"]
+material = SubResource("ShaderMaterial_70r4n")
+position = Vector2(535.99994, 322)
+scale = Vector2(11.24, 6.96)
+texture = ExtResource("10_luoof")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 6
+visible = false
+
+[node name="CRT" type="Sprite2D" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_mb2c8")
+position = Vector2(588, 332.00003)
+scale = Vector2(9.545594, 5.509933)
 texture = ExtResource("10_luoof")
