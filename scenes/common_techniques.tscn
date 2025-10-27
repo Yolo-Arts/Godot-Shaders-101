@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cayc38k3ed71x"]
+[gd_scene load_steps=31 format=3 uid="uid://cayc38k3ed71x"]
 
 [ext_resource type="Script" uid="uid://drl1xkp2lkjqk" path="res://scripts/common_techniques.gd" id="1_0ugy3"]
 [ext_resource type="Texture2D" uid="uid://dw27ks2iy6r18" path="res://assets/other/Terrain (16x16).png" id="2_4ntks"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://c0br5842v27mp" path="res://icon.svg" id="10_luoof"]
 [ext_resource type="Texture2D" uid="uid://jgyxm4826yuh" path="res://assets/other/Rock Head.png" id="11_luoof"]
 [ext_resource type="Shader" uid="uid://h8be1t0m6yxa" path="res://shaders/dissolve.gdshader" id="11_ux0nb"]
+[ext_resource type="Shader" uid="uid://cursktsltem4b" path="res://shaders/masking.gdshader" id="13_432xp"]
+[ext_resource type="Texture2D" uid="uid://cke0c82pd1yud" path="res://assets/other/circle_mask1.png" id="14_ir1eb"]
+[ext_resource type="Texture2D" uid="uid://daw35yrqwa2a5" path="res://assets/other/Spike Head.png" id="14_v7i2p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfsxn"]
 shader = ExtResource("2_xth1f")
@@ -243,6 +246,10 @@ _data = {
 &"dissolve": SubResource("Animation_ux0nb")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ir1eb"]
+shader = ExtResource("13_432xp")
+shader_parameter/mask_texture = ExtResource("14_ir1eb")
+
 [node name="CommonTechniques" type="Node2D"]
 script = ExtResource("1_0ugy3")
 
@@ -297,3 +304,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_432xp")
 }
 autoplay = "dissolve"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ir1eb")
+scale = Vector2(3, 3)
+texture = ExtResource("14_v7i2p")
