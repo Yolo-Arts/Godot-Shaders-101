@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var sprite = $AnimatedSprite2D
+@onready var animation_player = $AnimationPlayer
+
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
@@ -17,6 +19,9 @@ func _physics_process(delta):
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction != 0:
 		sprite.flip_h = (direction == -1)
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		animation_player.play("hitFlash")
 	
 	if direction:
 		velocity.x = direction * SPEED

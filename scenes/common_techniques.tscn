@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cayc38k3ed71x"]
+[gd_scene load_steps=9 format=3 uid="uid://cayc38k3ed71x"]
 
 [ext_resource type="Script" uid="uid://drl1xkp2lkjqk" path="res://scripts/common_techniques.gd" id="1_0ugy3"]
 [ext_resource type="Texture2D" uid="uid://dw27ks2iy6r18" path="res://assets/other/Terrain (16x16).png" id="2_4ntks"]
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_ttseq"]
+[ext_resource type="Texture2D" uid="uid://c4m2ljq1ynnik" path="res://assets/background/Brown.png" id="2_fxdch"]
+[ext_resource type="PackedScene" uid="uid://dgo1c56emhbdr" path="res://scenes/player.tscn" id="2_ttseq"]
+[ext_resource type="Shader" uid="uid://hrrubsqclqwg" path="res://shaders/scrolling_bg.gdshader" id="2_xth1f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mfsxn"]
+shader = ExtResource("2_xth1f")
+shader_parameter/tiling = Vector2(25, 25)
+shader_parameter/offset = Vector2(1, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sehxt"]
 texture = ExtResource("2_4ntks")
@@ -166,6 +173,16 @@ sources/0 = SubResource("TileSetAtlasSource_sehxt")
 
 [node name="CommonTechniques" type="Node2D"]
 script = ExtResource("1_0ugy3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_mfsxn")
+position = Vector2(569, 263.99997)
+scale = Vector2(22.84375, 22.84375)
+texture = ExtResource("2_fxdch")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(3, 3)
